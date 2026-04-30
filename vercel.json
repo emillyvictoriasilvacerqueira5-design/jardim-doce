@@ -1,5 +1,15 @@
 {
   "version": 2,
   "cleanUrls": true,
-  "framework": null
+  "trailingSlash": false,
+  "rewrites": [
+    {
+      "source": "/public/(.*)",
+      "destination": "/public/$1"
+    },
+    {
+      "source": "/((?!public/).*)",
+      "destination": "/index.html"
+    }
+  ]
 }
