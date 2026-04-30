@@ -387,6 +387,67 @@
             background: var(--gold-light);
             transform: scale(1.05);
         }
+
+        /* Mobile Menu Toggle */
+        .menu-toggle {
+            display: none;
+            flex-direction: column;
+            cursor: pointer;
+            gap: 6px;
+            z-index: 1001;
+        }
+
+        .menu-toggle .bar {
+            width: 30px;
+            height: 3px;
+            background-color: white;
+            border-radius: 2px;
+            transition: var(--transition);
+        }
+
+        @media (max-width: 992px) {
+            nav {
+                padding: 15px 25px;
+            }
+            
+            nav.scrolled {
+                padding: 10px 25px;
+            }
+
+            .menu-toggle {
+                display: flex;
+            }
+
+            .nav-links {
+                position: fixed;
+                top: 0;
+                right: -100%;
+                height: 100vh;
+                width: 80%;
+                background: rgba(107, 15, 26, 0.98);
+                flex-direction: column;
+                align-items: center;
+                justify-content: center;
+                gap: 40px;
+                transition: 0.5s ease;
+                backdrop-filter: blur(15px);
+                box-shadow: -10px 0 30px rgba(0,0,0,0.3);
+            }
+
+            .nav-links.active {
+                right: 0;
+            }
+
+            .menu-toggle.active .bar:nth-child(1) {
+                transform: translateY(9px) rotate(45deg);
+            }
+            .menu-toggle.active .bar:nth-child(2) {
+                opacity: 0;
+            }
+            .menu-toggle.active .bar:nth-child(3) {
+                transform: translateY(-9px) rotate(-45deg);
+            }
+        }
     </style>
 </head>
 <body>
@@ -396,12 +457,17 @@
             <img src="public/logo.png" alt="Logo">
             JARDIM DOCE
         </a>
+        <div class="menu-toggle" id="mobile-menu">
+            <span class="bar"></span>
+            <span class="bar"></span>
+            <span class="bar"></span>
+        </div>
         <ul class="nav-links">
-            <li><a href="#hero">Início</a></li>
-            <li><a href="#about">Sobre</a></li>
-            <li><a href="#menu">Cardápio</a></li>
-            <li><a href="#admin">Admin</a></li>
-            <li><a href="#cta" class="btn-nav">Entrar no Site</a></li>
+            <li><a href="#hero" onclick="closeMenu()">Início</a></li>
+            <li><a href="#about" onclick="closeMenu()">Sobre</a></li>
+            <li><a href="#menu" onclick="closeMenu()">Cardápio</a></li>
+            <li><a href="#admin" onclick="closeMenu()">Admin</a></li>
+            <li><a href="#cta" class="btn-nav" onclick="closeMenu()">Entrar no Site</a></li>
         </ul>
     </nav>
 
@@ -1146,6 +1212,27 @@
         }
 
         @media (max-width: 992px) {
+            .hero-headline {
+                font-size: 2.8rem;
+            }
+            
+            .hero-headline span {
+                font-size: 3.2rem;
+            }
+
+            .about-grid {
+                grid-template-columns: 1fr;
+                gap: 40px;
+                text-align: center;
+            }
+
+            .gold-quote {
+                border-left: none;
+                border-top: 3px solid var(--gold);
+                padding-left: 0;
+                padding-top: 20px;
+            }
+
             .footer-grid { 
                 grid-template-columns: 1fr !important; 
                 text-align: center; 
@@ -1155,6 +1242,29 @@
                 margin-bottom: 20px;
             }
             .features-grid { grid-template-columns: 1fr; }
+            
+            .cta-banner h2 {
+                font-size: 1.8rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .hero-headline {
+                font-size: 2.2rem;
+            }
+            
+            .hero-headline span {
+                font-size: 2.6rem;
+            }
+
+            .btn {
+                padding: 12px 30px;
+                font-size: 0.9rem;
+            }
+            
+            #hero {
+                background-attachment: scroll; /* Melhora performance em mobile */
+            }
         }
     </style>
 
@@ -1445,6 +1555,20 @@
         function showToast(msg) {
             // Reaproveitando a lógica de alerta elegante se houver, ou apenas alert para agora
             console.log("Toast:", msg);
+        }
+
+        // Mobile Menu Logic
+        const mobileMenu = document.getElementById('mobile-menu');
+        const navLinks = document.querySelector('.nav-links');
+
+        mobileMenu.addEventListener('click', () => {
+            mobileMenu.classList.toggle('active');
+            navLinks.classList.toggle('active');
+        });
+
+        function closeMenu() {
+            mobileMenu.classList.remove('active');
+            navLinks.classList.remove('active');
         }
     </script>
 </body>
