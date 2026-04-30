@@ -1,0 +1,16 @@
+{
+  "name": "jardim-doce",
+  "version": "1.0.0",
+  "description": "Jardim Doce - Brigadeiros Artesanais",
+  "main": "index.html",
+  "scripts": {
+    "start": "serve .",
+    "deploy": "vercel --prod"
+  },
+  "keywords": [],
+  "author": "emillyvictoriasilvacerqueira5-design",
+  "license": "ISC",
+  "devDependencies": {
+    "serve": "^14.2.0"
+  }
+}
